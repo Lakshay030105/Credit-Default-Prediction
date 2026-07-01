@@ -32,14 +32,33 @@ st.write("Enter customer details")
 LIMIT_BAL = st.number_input("Credit Limit")
 AGE = st.number_input("Age")
 
-SEX = st.selectbox("Sex", [1, 2])
+sex_mapping = {1:"Male",2:"Female"}
+SEX = st.selectbox("Sex", [1, 2], format_func= lambda x: sex_mapping[x])
 
-EDUCATION = st.selectbox("Education", [1, 2, 3, 4])
+education_mapping = {1:"Graduate School",2:"University",3:"High School",4:"Others",5:"Unknown"}
+EDUCATION = st.selectbox("Education", [1, 2, 3, 4, 5], format_func=lambda x:education_mapping.get(x))
 
-MARRIAGE = st.selectbox("Marriage", [1, 2, 3])
+marrige_mapping = {1:"Married",2:"Single",3:"Others"}
+MARRIAGE = st.selectbox("Marriage", [1, 2, 3], format_func=lambda x: marrige_mapping.get(x))
 
-PAY_0 = st.number_input("Current Repayment Status")
-PAY_2 = st.number_input("Previous Repayment Status")
+repayment_map = {
+    -2:"-2: No consumption / no bill issued",
+    -1:"-1: Paid on time",
+    0:"0: Used credit but paid without Delay",
+    1:"1: Payment delay for 1 month",
+    2:"2: Payment delay for 2 months",
+    3:"3: Payment delay for 3 months",
+    4:"4: Payment delay for 4 months",
+    5:"5: Payment delay for 5 months",
+    6:"6: Payment delay for 6 months",
+    7:"7: Payment delay for 7 months",
+    8:"8: Payment delay for 8 months",
+    9:"9: Payment delay for 9 months"
+}
+
+repayment_options = list(range(-2,10))
+PAY_0 = st.selectbox("Current Repayment Status",options=repayment_options,format_func=lambda x: repayment_map[x])
+PAY_2 = st.selectbox("Previous Repayment Status",options=repayment_options,format_func=lambda x: repayment_map[x])
 
 Avg_Delay = st.number_input("Average Delay")
 Total_Payment = st.number_input("Total Payment")
